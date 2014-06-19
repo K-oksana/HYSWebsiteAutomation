@@ -19,7 +19,7 @@ namespace TestLibrary1
         // Use TestInitialize to run code before running each test
 
         [SetUp]
-        public void MyTestInitialize()
+        public void testInitialize()
         {
             var capabilitiesInternet = new OpenQA.Selenium.Remote.DesiredCapabilities();
             capabilitiesInternet.SetCapability("ignoreProtectedModeSettings", true);
@@ -29,12 +29,14 @@ namespace TestLibrary1
 
 
         [Test]
-        public void MyAddTest()
+        public void testScreenshot()
         {
             //WebDriver = new ChromeDriver(@"C:\chromedriver_win32\");
             WebDriver.Navigate().GoToUrl("http://google.com");
             StringAssert.Contains("Google", WebDriver.Title);
             SaveScreenShot(WebDriver.Title);
+            System.Threading.Thread.Sleep(2000);
+           // cleanUp();
         }
 
 
@@ -49,6 +51,11 @@ namespace TestLibrary1
 
         }
 
+        [TearDown]
+        public void cleanUp()
+        {
+            WebDriver.Close();
+        }
 
     }
 }
